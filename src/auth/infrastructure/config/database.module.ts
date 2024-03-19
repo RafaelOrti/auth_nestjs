@@ -1,7 +1,8 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
-const ormConfigFile = process.env.NODE_ENV === 'development' ? 'orm-dev.config' : 'orm-prod.config';
+const ormConfigFile =
+  process.env.NODE_ENV === 'development' ? 'orm-dev.config' : 'orm-prod.config';
 
 @Module({
   imports: [

@@ -1,4 +1,3 @@
 export class DeleteUserCommand {
-    constructor(public readonly id: number) {}
-  }
-  
+  constructor(public readonly id: number) {}
+}

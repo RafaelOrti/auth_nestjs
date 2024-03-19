@@ -30,7 +30,11 @@ export class UserRepository implements IUserRepository {
     return newUser;
   }
 
-  async update(userUpdate: { id: number; email?: string; password?: string }): Promise<User | undefined> {
+  async update(userUpdate: {
+    id: number;
+    email?: string;
+    password?: string;
+  }): Promise<User | undefined> {
     const index = this.users.findIndex((u) => u.id === userUpdate.id);
     if (index !== -1) {
       if (userUpdate.email) {

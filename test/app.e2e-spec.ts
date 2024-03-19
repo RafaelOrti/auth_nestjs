@@ -1,71 +1,3 @@
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 import { Test, TestingModule } from '@nestjs/testing';
 import { INestApplication } from '@nestjs/common';
 import * as request from 'supertest';
@@ -90,9 +22,9 @@ describe('AuthController (e2e)', () => {
 
   it('POST /auth/register (Register User)', async () => {
     await request(app.getHttpServer())
-    .post('/auth/register')
-    .send({ email: 'test@example.com', password: 'Test123!' })
-    .expect(201);
+      .post('/auth/register')
+      .send({ email: 'test@example.com', password: 'Test123!' })
+      .expect(201);
   });
 
   it('should login with registered user', async () => {
@@ -111,15 +43,8 @@ describe('AuthController (e2e)', () => {
       .expect(200);
   });
 
-  it('should get a list of users', async () => {
-    const hola = await request(app.getHttpServer())
-      .get('/auth/users')
-      .set('Authorization', `Bearer ${token}`)
-      .expect(200);
-  });
-
   it('should update user information', async () => {
-    const userId = 1; 
+    const userId = 1;
     await request(app.getHttpServer())
       .patch(`/auth/${userId}`)
       .set('Authorization', `Bearer ${token}`)
@@ -127,15 +52,8 @@ describe('AuthController (e2e)', () => {
       .expect(200);
   });
 
-  it('should get a list of users', async () => {
-    const hola = await request(app.getHttpServer())
-      .get('/auth/users')
-      .set('Authorization', `Bearer ${token}`)
-      .expect(200);
-  });
-
   it('should delete the user', async () => {
-    const userId = 1; 
+    const userId = 1;
     await request(app.getHttpServer())
       .delete(`/auth/${userId}`)
       .set('Authorization', `Bearer ${token}`)

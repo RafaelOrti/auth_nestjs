@@ -13,9 +13,9 @@ export class RabbitMQSetupService implements OnModuleInit {
     const user = process.env.RABBITMQ_USERNAME || 'guest';
     const pass = process.env.RABBITMQ_PASSWORD || 'guest';
     const vhost = process.env.RABBITMQ_VHOST || '/';
-    const exchangeName = process.env.RABBITMQ_EXCHANGE_NAME || 'user_events'; 
-    const queueName = process.env.RABBITMQ_QUEUE_NAME || 'user_creation_queue'; 
-    const routingKey = process.env.RABBITMQ_ROUTING_KEY || 'user.created'; 
+    const exchangeName = process.env.RABBITMQ_EXCHANGE_NAME || 'user_events';
+    const queueName = process.env.RABBITMQ_QUEUE_NAME || 'user_creation_queue';
+    const routingKey = process.env.RABBITMQ_ROUTING_KEY || 'user.created';
     const host = process.env.RABBITMQ_HOST || 'rabbitmq';
     const port = process.env.RABBITMQ_PORT || 5672;
     const connectionUri = `amqp://${user}:${pass}@${host}:${port}${vhost}`;
@@ -27,19 +27,27 @@ export class RabbitMQSetupService implements OnModuleInit {
         const channel = await connection.createChannel();
 
         await channel.assertExchange(exchangeName, 'topic', { durable: true });
-        const queueAssertion = await channel.assertQueue(queueName, { durable: true });
+        const queueAssertion = await channel.assertQueue(queueName, {
+          durable: true,
+        });
         await channel.bindQueue(queueAssertion.queue, exchangeName, routingKey);
-        this.logger.log('Exchange and Queue configured successfully with the provided values.');
+        this.logger.log(
+          'Exchange and Queue configured successfully with the provided values.',
+        );
 
         return;
       } catch (error) {
-        this.logger.error(`Error configuring Exchange and Queue: ${error.message}`);
+        this.logger.error(
+          `Error configuring Exchange and Queue: ${error.message}`,
+        );
         retryAttempts--;
 
-        await new Promise(resolve => setTimeout(resolve, 5000));
+        await new Promise((resolve) => setTimeout(resolve, 5000));
       }
     }
 
-    this.logger.error('Failed to configure RabbitMQ after maximum retry attempts.');
+    this.logger.error(
+      'Failed to configure RabbitMQ after maximum retry attempts.',
+    );
   }
 }
