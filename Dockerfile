@@ -14,7 +14,7 @@ COPY .env.example .env
 RUN npm install -g typescript
 
 # # Instala las dependencias del proyecto
-RUN npm install
+RUN npm install --fetch-timeout=600000
 
 # Compila el código TypeScript
 # RUN npm run build
