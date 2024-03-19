@@ -1,73 +1,144 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
-</p>
+# todo_nestjs_workspace
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+## Descripción del Proyecto
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+La prueba técnica consiste en desarrollar una micro aplicación de TODO clásica, usando Nest.js o .NET y siguiendo el patrón de diseño de software CQRS, IoC y DDD/Hexagonal con repositorios. Todo lo que puedas aportar como Docker, TDD, message-bus, migraciones, hexagonal, login JWT, etc, se tendrán en cuenta.
 
-## Description
+Nos interesa que nos comentes tus impresiones sobre el patrón CQRS y la soltura a la hora de aplicar DDD correctamente.
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
 
-## Installation
+## Descripción del Proyecto
 
-```bash
-$ npm install
-```
+El objetivo de este proyecto es definir un sistema distribuido con diferentes servicios:
 
-## Running the app
+- todo service
+- auth service
 
-```bash
-# development
-$ npm run start
+Comunicados via rabbitmq para que cuando se realice una acción en el servicio de auth se generen tareas para usuarios nuevos con tareas nuevas etc...
 
-# watch mode
-$ npm run start:dev
+Además cada servicio tiene su propia base de datos MySQL y que pueda trabajar con SQLite para hacer pruebas de los servicios de manera individual desplegando en dev.
 
-# production mode
-$ npm run start:prod
-```
+La idea es definir un workspace donde se proporcionen las herramientas necesarias para trabajar con este sistema distribuido
 
-## Test
+## Instrucciones
 
-```bash
-# unit tests
-$ npm run test
+Deployment:
+- `sh deploy.sh`
 
-# e2e tests
-$ npm run test:e2e
+Detener contenedores:
+- `docker-compose stop`
 
-# test coverage
-$ npm run test:cov
-```
+Levantar contenedores:
+- `docker-compose up -d`
 
-## Support
+## Endpoint Swagger
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+- `/api` contiene una vista con la que podemos probar los endpoints CRUD en los respectivos puertos de auth y todo
 
-## Stay in touch
+## Scripts
 
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+- `start`: Inicia la aplicación en modo production
+- `start:dev`: Inicia la aplicación en modo development
+- `build`: Compila el código TypeScript
+- `lint`: Realiza la verificación de estilo con ESLint
+- `tests`: Realiza test unitarios
+- `e2e tests`: Raliza test e2e
 
-## License
+## Funcionalidades Destacadas
 
-Nest is [MIT licensed](LICENSE).
+- **Autenticación Segura**: Implementa un sistema completo de autenticación de usuarios, incluyendo registro, inicio de sesión y autenticación JWT.
+- **Gestión de Tareas**: Permite a los usuarios crear, modificar, eliminar y visualizar tareas de manera eficiente.
+- **Patrón CQRS**: Mejora la escalabilidad y el mantenimiento del proyecto al separar las operaciones de lectura y escritura, siguiendo los principios del diseño dirigido por el dominio (DDD).
+- **Inversión de Control (IoC)**: Utiliza el patrón de Inversión de Control para desacoplar las dependencias y facilitar la prueba unitaria y la modularidad del código.
+- **Arquitectura Hexagonal**: Implementa una arquitectura hexagonal para organizar el código en capas independientes, facilitando la separación de preocupaciones y la gestión de la complejidad.
+- **Documentación API con Swagger**: Facilita el desarrollo y la integración frontend mediante documentación interactiva de la API.
+
+## Tecnologías Implementadas
+
+- **NestJS**: Framework de desarrollo para aplicaciones server-side en Node.js, elegido por su escalabilidad y versatilidad.
+- **Swagger**: Integrado para proporcionar una documentación interactiva y exploración de la API.
+- **Docker**: Utilizado para contenerizar y desplegar la aplicación de manera consistente en cualquier entorno.
+- **RabbitMQ**: Empleado para la comunicación asíncrona entre microservicios, facilitando la integración y la gestión de eventos.
+- **SQLite**: Sistema de gestión de bases de datos ligero y autónomo, seleccionado por su simplicidad y facilidad de uso.
+- **MySQL**: Base de datos relacional utilizada para almacenar datos estructurados y garantizar la persistencia de la información.
+
+
+## Arquitectura Workspaces
+
+
+![alt text](image-1.png)
+
+El proyecto se organiza en módulos claros y bien definidos para facilitar la navegación y el desarrollo:
+`
+- /workspace
+  - /auth: Módulo de autenticación de usuarios.
+  - /todo: Módulo para la gestión de tareas.
+  - /shared: Código y utilidades compartidas.
+  - /nginx: Modulo de proxy inverso.
+  - deploy.sh: Script para el despliegue con Docker.
+  - docker-compose.yml: Configuración de Docker Compose.
+
+
+
+## Arquitectura servicios nest (DDD, Hexagonal, CQRS)
+
+![alt text](image.png)
+
+El proyecto se organiza siguiendo DDD, Hexagonal, CQRS
+
+```s
+── proyecto
+    ├── package.json
+    ├── package-lock.json
+    ├── README.md
+    ├── src
+    │   ├── app.module.ts
+    │   ├── main.ts
+    │   └── feature
+    │       ├── application
+    │       │   ├── commands
+    │       │   │   ├── create.command.ts
+    │       │   │   ├── delete.command.ts
+    │       │   │   └── update-by-completed.command.ts
+    │       │   ├── dto
+    │       │   │   ├── create-dto.ts
+    │       │   │   └── update-dto.ts
+    │       │   ├── handlers
+    │       │   │   ├── create.handler.ts
+    │       │   │   ├── delete.handler.ts
+    │       │   │   ├── list-by-id.handler.ts
+    │       │   │   ├── list.handler.ts
+    │       │   │   └── update-by-completed.handler.ts
+    │       │   └── queries
+    │       │       ├── list-by-id.query.ts
+    │       │       └── list.query.ts
+    │       ├── domain
+    │       │   ├── entities
+    │       │   │   └── entity.ts
+    │       │   └── repositories
+    │       │       └── interface-repository.ts
+    │       ├── infrastructure
+    │       │   ├── api
+    │       │   │   ├── controller.spec.ts
+    │       │   │   └── controller.ts
+    │       │   ├── config
+    │       │   │   ├── database.module.ts
+    │       │   │   ├── orm-dev.config.ts
+    │       │   │   ├── orm-prod.config.ts
+    │       │   │   ├── rabbitmq.config.ts
+    │       │   │   └── swagger.config.ts
+    │       │   ├── database
+    │       │   │   ├── 1710697456273-migrations.ts
+    │       │   │   └── migrations
+    │       │   ├── logger
+    │       │   │   └── logger.config.ts
+    │       │   ├── messaging
+    │       │   │   └── events-consumer.service.ts
+    │       │   └── persistence
+    │       │       └── repository.ts
+    │       └── module.ts
+    ├── test
+    │   ├── app.e2e-spec.ts
+    │   └── jest-e2e.json
+    ├── tsconfig.build.json
+    └── tsconfig.json
