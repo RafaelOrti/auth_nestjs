@@ -21,7 +21,6 @@ export class AuthService {
     try {
       const user = await this.userRepository.findByEmail(email);
       if (user && (await bcrypt.compare(password, user.password))) {
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
         const { password, ...result } = user;
         this.logger.log(`User validated: ${email}`);
         return result;
