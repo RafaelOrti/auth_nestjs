@@ -17,19 +17,15 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
 
   async validate(payload: any) {
     const email = payload.email;
-    this.logger.log(`Validating user by email: ${email}`);
+    this.logger.log(`Validating user by email: ${email}`); 
 
     const user = await this.userRepository.findByEmail(email);
     if (!user) {
-      this.logger.error(
-        `User validation failed: No user found with email ${email}`,
-      );
-      throw new UnauthorizedException(
-        `Access denied: No user found with email ${email}`,
-      );
+      this.logger.error(`User validation failed: No user found with email ${email}`); 
+      throw new UnauthorizedException(`Access denied: No user found with email ${email}`);
     }
-
-    this.logger.log(`User validated: ${email}`);
-    return { userId: user.id, email: user.email };
+    
+    this.logger.log(`User validated: ${email}`); 
+    return { userId: user.id, email: user.email }; 
   }
 }

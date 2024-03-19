@@ -13,7 +13,7 @@ describe('AuthController', () => {
   let authController: AuthController;
   let commandBus: CommandBus;
   let queryBus: QueryBus;
-
+  
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       controllers: [AuthController],
@@ -23,14 +23,11 @@ describe('AuthController', () => {
     authController = module.get<AuthController>(AuthController);
     commandBus = module.get<CommandBus>(CommandBus);
     queryBus = module.get<QueryBus>(QueryBus);
-  });
+      });
 
   describe('register', () => {
     it('should call commandBus with RegisterCommand', async () => {
-      const userDto: UserDto = {
-        email: 'test@example.com',
-        password: 'password123',
-      };
+      const userDto: UserDto = { email: 'test@example.com', password: 'password123' };
       jest.spyOn(commandBus, 'execute').mockResolvedValueOnce({});
 
       await authController.register(userDto);
@@ -43,10 +40,7 @@ describe('AuthController', () => {
 
   describe('login', () => {
     it('should call commandBus with LoginCommand', async () => {
-      const userDto: UserDto = {
-        email: 'test@example.com',
-        password: 'password123',
-      };
+      const userDto: UserDto = { email: 'test@example.com', password: 'password123' };
       jest.spyOn(commandBus, 'execute').mockResolvedValueOnce({});
 
       await authController.login(userDto);
@@ -71,23 +65,18 @@ describe('AuthController', () => {
     it('should call queryBus with CheckEmailExistsQuery', async () => {
       const email = 'test@example.com';
       jest.spyOn(queryBus, 'execute').mockResolvedValueOnce(true);
-
+  
       const result = await authController.checkEmailExists(email);
-
-      expect(queryBus.execute).toHaveBeenCalledWith(
-        new CheckEmailExistsQuery(email),
-      );
-      expect(result).toBe(true);
+  
+      expect(queryBus.execute).toHaveBeenCalledWith(new CheckEmailExistsQuery(email));
+      expect(result).toBe(true); 
     });
   });
-
+  
   describe('updateUser', () => {
     it('should call commandBus with UpdateUserCommand', async () => {
       const id = 1;
-      const userDto: UserDto = {
-        email: 'update@example.com',
-        password: 'newpassword123',
-      };
+      const userDto: UserDto = { email: 'update@example.com', password: 'newpassword123' };
       jest.spyOn(commandBus, 'execute').mockResolvedValueOnce({});
 
       await authController.updateUser(id, userDto);

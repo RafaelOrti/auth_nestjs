@@ -1,11 +1,7 @@
 import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
 import { DeleteUserCommand } from '../commands/delete-user.command';
 import { UserRepository } from '../../infrastructure/persistence/userRepository';
-import {
-  Logger,
-  InternalServerErrorException,
-  NotFoundException,
-} from '@nestjs/common';
+import { Logger, InternalServerErrorException, NotFoundException } from '@nestjs/common'; 
 
 @CommandHandler(DeleteUserCommand)
 export class DeleteUserHandler implements ICommandHandler<DeleteUserCommand> {
@@ -26,21 +22,15 @@ export class DeleteUserHandler implements ICommandHandler<DeleteUserCommand> {
       const deleted = await this.userRepository.delete(command.id);
       if (!deleted) {
         this.logger.error(`Failed to delete user with ID: ${command.id}`);
-
-        throw new InternalServerErrorException(
-          `Failed to delete user with ID: ${command.id}`,
-        );
+        
+        throw new InternalServerErrorException(`Failed to delete user with ID: ${command.id}`);
       }
 
       this.logger.log(`User with ID: ${command.id} successfully deleted`);
     } catch (error) {
-      this.logger.error(
-        `Unexpected error during deletion of user with ID: ${command.id}`,
-        error.stack,
-      );
-      throw new InternalServerErrorException(
-        'Unexpected error occurred during user deletion',
-      );
+      
+      this.logger.error(`Unexpected error during deletion of user with ID: ${command.id}`, error.stack);
+      throw new InternalServerErrorException('Unexpected error occurred during user deletion');
     }
   }
 }

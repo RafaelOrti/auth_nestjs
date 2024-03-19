@@ -1,24 +1,7 @@
-import {
-  Controller,
-  Post,
-  Get,
-  Patch,
-  Delete,
-  Body,
-  Param,
-  ParseIntPipe,
-  UseGuards,
-} from '@nestjs/common';
+import { Controller, Post, Get, Patch, Delete, Body, Param, ParseIntPipe, UseGuards } from '@nestjs/common';
 import { CommandBus, QueryBus } from '@nestjs/cqrs';
 import { AuthGuard } from '@nestjs/passport';
-import {
-  ApiTags,
-  ApiOperation,
-  ApiResponse,
-  ApiBody,
-  ApiParam,
-  ApiBearerAuth,
-} from '@nestjs/swagger';
+import { ApiTags, ApiOperation, ApiResponse, ApiBody, ApiParam, ApiBearerAuth } from '@nestjs/swagger';
 
 import { RegisterCommand } from '../../application/commands/register.command';
 import { LoginCommand } from '../../application/commands/login.command';
@@ -42,9 +25,7 @@ export class AuthController {
   @ApiResponse({ status: 201, description: 'User successfully registered.' })
   @ApiResponse({ status: 400, description: 'Bad Request.' })
   async register(@Body() userDto: UserDto) {
-    return this.commandBus.execute(
-      new RegisterCommand(userDto.email, userDto.password),
-    );
+    return this.commandBus.execute(new RegisterCommand(userDto.email, userDto.password));
   }
 
   @Post('login')
@@ -53,17 +34,12 @@ export class AuthController {
   @ApiResponse({ status: 200, description: 'User successfully logged in.' })
   @ApiResponse({ status: 401, description: 'Unauthorized.' })
   async login(@Body() userDto: UserDto) {
-    return this.commandBus.execute(
-      new LoginCommand(userDto.email, userDto.password),
-    );
+    return this.commandBus.execute(new LoginCommand(userDto.email, userDto.password));
   }
 
   @Get('users')
   @ApiOperation({ summary: 'Get all users' })
-  @ApiResponse({
-    status: 200,
-    description: 'User list retrieved successfully.',
-  })
+  @ApiResponse({ status: 200, description: 'User list retrieved successfully.' })
   @ApiBearerAuth()
   async findAllUsers() {
     return this.queryBus.execute(new GetAllUsersQuery());
@@ -72,10 +48,7 @@ export class AuthController {
   @Get('check-email-exists/:email')
   @ApiOperation({ summary: 'Check if an email exists' })
   @ApiParam({ name: 'email', required: true })
-  @ApiResponse({
-    status: 200,
-    description: 'Email existence checked successfully.',
-  })
+  @ApiResponse({ status: 200, description: 'Email existence checked successfully.' })
   async checkEmailExists(@Param('email') email: string) {
     return this.queryBus.execute(new CheckEmailExistsQuery(email));
   }
@@ -88,10 +61,7 @@ export class AuthController {
   @ApiResponse({ status: 200, description: 'User updated successfully.' })
   @ApiResponse({ status: 404, description: 'User not found.' })
   @ApiBearerAuth()
-  async updateUser(
-    @Param('id', ParseIntPipe) id: number,
-    @Body() userDto: UserDto,
-  ) {
+  async updateUser(@Param('id', ParseIntPipe) id: number, @Body() userDto: UserDto) {
     const command = new UpdateUserCommand(id, userDto.email, userDto.password);
     const result = await this.commandBus.execute(command);
     return { message: 'User updated successfully', user: result };
