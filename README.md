@@ -2,10 +2,7 @@
 
 ## Descripción del Proyecto
 
-La prueba técnica consiste en desarrollar una micro aplicación de TODO clásica, usando Nest.js o .NET y siguiendo el patrón de diseño de software CQRS, IoC y DDD/Hexagonal con repositorios. Todo lo que puedas aportar como Docker, TDD, message-bus, migraciones, hexagonal, login JWT, etc, se tendrán en cuenta.
-
-Nos interesa que nos comentes tus impresiones sobre el patrón CQRS y la soltura a la hora de aplicar DDD correctamente.
-
+Desarrollar una micro aplicación de TODO clásica, usando Nest.jsy siguiendo el patrón de diseño de software CQRS, IoC y DDD/Hexagonal con repositorios. Docker, TDD, message-bus, migraciones, hexagonal, login JWT, etc
 
 ## Descripción del Proyecto
 
